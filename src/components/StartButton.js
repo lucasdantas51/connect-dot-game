@@ -9,11 +9,5 @@ export default styled.button`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
-	& span {
-		color: #252525;
-		font-size: 1rem;
-		font-weight: 500;
-	}
 `;
 

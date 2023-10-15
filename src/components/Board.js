@@ -1,7 +1,7 @@
 ﻿import { styled, css } from "styled-components";
 
 export default styled.div`
-	max-width: fit-content;
+	width: fit-content;
 	margin: auto;
 	display: grid;
 	background: #DDDDDD;

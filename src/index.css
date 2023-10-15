@@ -2,13 +2,32 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background: #363a4d;
-  height: 100vh;
+  /* height: 100vh; */
   text-align: center;
   padding: 2rem;
+  min-width: 400px;
 }
 
-h2 {
-  color: #FFFFFF;
-  font-weight: 600;
-  padding-bottom: 2rem;
+.text-gray-dark {
+  color: #252525;
+}
+
+.text-gray-main {
+  color: #636363;
+}
+
+.border-radius-2 {
+  border-radius: .5rem !important;
+}
+
+.border-radius-100 {
+  border-radius: 100% !important;
+}
+
+button:disabled {
+  opacity: .5;
+}
+
+.h-0 {
+  height: 0 !important;
 }
