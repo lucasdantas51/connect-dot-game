@@ -29,31 +29,34 @@ export default function Level1({reset}) {
   // Handle Maca Complete
   const handleTouchStartMaca = () => {
     const novoSquares = [...squares];
-    novoSquares[0][0] = colorMaca;
+    novoSquares[1][1] = colorMaca;
     setSquares(novoSquares);
   };
 
   const handleTouchMoveMaca = (event) => {
     const novoSquares = [...squares];
+
     const touchY = event.touches[0].clientY;
     const touchX = event.touches[0].clientX;
-    novoSquares[0][0] = colorMaca;
-    if (touchY >= boardY + 100) {
-      novoSquares[1][0] = colorMaca
-      if (touchX >= boardX + 100) {
-        novoSquares[1][1] = colorMaca;
-        setMacaComplete(true);
-      }
-      else {
-        novoSquares[1][1] = false;
-        setMacaComplete(false);
-      }
+
+    if (!novoSquares[1][0] || novoSquares[1][0] === colorMaca ) {
+      novoSquares[1][0] = (squares[1][1] && touchX <= boardX + 100) ? colorMaca : false;
     }
-    else {
-      novoSquares[1][0] = false;
-      novoSquares[1][1] = false;
-      setMacaComplete(false);
+
+    if (!novoSquares[1][2] || novoSquares[1][2] === colorMaca ) {
+      novoSquares[1][2] = (squares[1][1] && touchX >= boardX + 200) ? colorMaca : false;
     }
+
+    if (!novoSquares[2][1] || novoSquares[2][1] === colorMaca ) {
+      novoSquares[2][1] = (squares[1][1] && touchY >= boardY + 200) ? colorMaca : false;
+    }
+
+    if (!novoSquares[0][0] || novoSquares[0][0] === colorMaca ) {
+      novoSquares[0][0] = (squares[1][0] && touchY <= boardY + 100) ? colorMaca : false;
+    }
+
+    squares[0][0] ? setMacaComplete(true) : setMacaComplete(false);
+    
     setSquares(novoSquares);
   };
 
@@ -61,9 +64,11 @@ export default function Level1({reset}) {
     if (!macaComplete) {
       const novoSquares = [...squares];
 
-      novoSquares[0][0] = false;
-      novoSquares[1][0] = false;
-      novoSquares[1][1] = false;
+      novoSquares[1][1] = (squares[1][1] === colorMaca) ? false : squares[1][1];
+      novoSquares[1][0] = (squares[1][0] === colorMaca) ? false : squares[1][0];
+      novoSquares[1][2] = (squares[1][2] === colorMaca) ? false : squares[1][2];
+      novoSquares[2][1] = (squares[2][1] === colorMaca) ? false : squares[2][1];
+      novoSquares[0][0] = (squares[0][0] === colorMaca) ? false : squares[0][0];
 
       setSquares(novoSquares);
     }
@@ -72,7 +77,7 @@ export default function Level1({reset}) {
   // Handle Maca Complete
   const handleTouchStartBanana = () => {
     const novoSquares = [...squares];
-    novoSquares[0][1] = colorBanana;
+    novoSquares[2][0] = colorBanana;
     setSquares(novoSquares);
   };
 
@@ -82,19 +87,30 @@ export default function Level1({reset}) {
     const touchY = event.touches[0].clientY;
     const touchX = event.touches[0].clientX;
 
-    novoSquares[0][1] = colorBanana;
-
-    if (squares[2][2]) {
-      novoSquares[2][1] = (touchX <= boardX + 200) ? colorBanana : false;
-      novoSquares[2][0] = (squares[2][1] && touchX <= boardX + 100) ? colorBanana : false;
+    if (squares[0][2]) {
+      if (!novoSquares[0][1] || novoSquares[0][1] === colorBanana ) {
+        novoSquares[0][1] = (squares[0][2] && touchX <= boardX + 200) ? colorBanana : false;
+      }
     }
     else {
-      novoSquares[0][2] = (squares[0][1] && touchX >= boardX + 200 && touchY > boardY) ? colorBanana : false;
-      novoSquares[1][2] = (squares[0][2] && touchX >= boardX + 200 && touchY >= boardY + 100) ? colorBanana : false;
-      novoSquares[2][2] = (squares[0][2] && touchX >= boardX + 200 && touchY >= boardY + 200) ? colorBanana : false;
+      if (!novoSquares[2][1] || novoSquares[2][1] === colorBanana ) {
+        novoSquares[2][1] = (squares[2][0] && touchX >= boardX + 100) ? colorBanana : false;
+      }
+  
+      if (!novoSquares[2][2] || novoSquares[2][2] === colorBanana ) {
+        novoSquares[2][2] = (squares[2][1] && touchX >= boardX + 200) ? colorBanana : false;
+      }
+  
+      if (!novoSquares[1][2] || novoSquares[1][2] === colorBanana ) {
+        novoSquares[1][2] = (squares[2][2] && touchY <= boardY + 200) ? colorBanana : false;
+      }
+  
+      if (!novoSquares[0][2] || novoSquares[0][2] === colorBanana ) {
+        novoSquares[0][2] = (squares[1][2] && touchY <= boardY + 100) ? colorBanana : false;
+      }
     }
 
-    squares[2][0] ? setBananaComplete(true) : setBananaComplete(false);
+    squares[0][1] ? setBananaComplete(true) : setBananaComplete(false);
 
     setSquares(novoSquares);
   };
@@ -103,11 +119,12 @@ export default function Level1({reset}) {
     if (!BananaComplete) {
       const novoSquares = [...squares];
 
-      novoSquares[2][1] = false;
-      novoSquares[2][0] = false;
-      novoSquares[0][2] = false;
-      novoSquares[1][2] = false;
-      novoSquares[2][2] = false;
+      novoSquares[2][0] = (squares[2][0] === colorBanana) ? false : squares[2][0];
+      novoSquares[0][1] = (squares[0][1] === colorBanana) ? false : squares[0][1];
+      novoSquares[2][1] = (squares[2][1] === colorBanana) ? false : squares[2][1];
+      novoSquares[2][2] = (squares[2][2] === colorBanana) ? false : squares[2][2];
+      novoSquares[1][2] = (squares[1][2] === colorBanana) ? false : squares[1][2];
+      novoSquares[0][2] = (squares[0][2] === colorBanana) ? false : squares[0][2];
 
       setSquares(novoSquares);
     }
@@ -124,32 +141,32 @@ export default function Level1({reset}) {
   return (
     <div className="m-auto board-size-small">
       <Board id="board">
-        <Square
-          $background={squares[0][0]}
+        <Square $background={squares[0][0]}>
+          <img src={MacaIcon} alt='Maçã' />
+        </Square>
+        <Square $background={squares[0][1]}>
+          <img src={BananaIcon} alt='Banana' />
+        </Square>
+        <Square $background={squares[0][2]}></Square>
+
+        <Square $background={squares[1][0]}></Square>
+        <Square 
+          $background={squares[1][1]}
           onTouchStart={handleTouchStartMaca}
           onTouchMove={handleTouchMoveMaca}
           onTouchEnd={handleTouchEndMaca}
         >
           <span>Maçã</span>
         </Square>
-        <Square
-          $background={squares[0][1]}
+        <Square $background={squares[1][2]}></Square>
+
+        <Square 
+          $background={squares[2][0]}
           onTouchStart={handleTouchStartBanana}
           onTouchMove={handleTouchMoveBanana}
           onTouchEnd={handleTouchEndBanana}
         >
           <span>Banana</span>
-        </Square>
-        <Square $background={squares[0][2]}></Square>
-
-        <Square $background={squares[1][0]}></Square>
-        <Square $background={squares[1][1]}>
-          <img src={MacaIcon} alt='Maçã' />
-        </Square>
-        <Square $background={squares[1][2]}></Square>
-
-        <Square $background={squares[2][0]}>
-          <img src={BananaIcon} alt='Banana' />
         </Square>
         <Square $background={squares[2][1]}></Square>
         <Square $background={squares[2][2]}></Square>

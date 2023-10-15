@@ -111,7 +111,7 @@ export default function Level5({reset}) {
   // Handle Maca Complete
   const handleTouchStartBanana = () => {
     const novoSquares = [...squares];
-    novoSquares[0][2] = colorBanana;
+    novoSquares[1][1] = colorBanana;
     setSquares(novoSquares);
   };
 
@@ -121,18 +121,16 @@ export default function Level5({reset}) {
     const touchY = event.touches[0].clientY;
     const touchX = event.touches[0].clientX;
 
-    novoSquares[0][2] = colorBanana;
-
     if (!novoSquares[1][2] || novoSquares[1][2] === colorBanana) {
-      novoSquares[1][2] = (squares[0][2] && touchY >= boardY + 71) ? colorBanana : false;
+      novoSquares[1][2] = (squares[1][1] && touchX >= boardX + 71) ? colorBanana : false;
     }
 
     if (!novoSquares[1][3] || novoSquares[1][3] === colorBanana) {
       novoSquares[1][3] = (squares[1][2] && touchX >= boardX + 213) ? colorBanana : false;
     }
 
-    if (!novoSquares[1][1] || novoSquares[1][1] === colorBanana) {
-      novoSquares[1][1] = (squares[1][2] && touchX <= boardX + 142) ? colorBanana : false;
+    if (!novoSquares[0][2] || novoSquares[0][2] === colorBanana) {
+      novoSquares[0][2] = (squares[1][2] && touchY <= boardY + 71) ? colorBanana : false;
     }
 
     if (!novoSquares[2][3] || novoSquares[2][3] === colorBanana) {
@@ -143,7 +141,7 @@ export default function Level5({reset}) {
       novoSquares[2][2] = (squares[1][2] && touchY >= boardY + 142) || (squares[2][3] && touchX <= boardX + 213) ? colorBanana : false;
     }
 
-    squares[1][1] ? setBananaComplete(true) : setBananaComplete(false);
+    squares[0][2] ? setBananaComplete(true) : setBananaComplete(false);
 
     setSquares(novoSquares);
   };
@@ -166,7 +164,7 @@ export default function Level5({reset}) {
   // Handle Uva Complete
   const handleTouchStartUva = () => {
     const novoSquares = [...squares];
-    novoSquares[0][1] = colorUva;
+    novoSquares[3][3] = colorUva;
     setSquares(novoSquares);
   };
 
@@ -176,35 +174,38 @@ export default function Level5({reset}) {
     const touchY = event.touches[0].clientY;
     const touchX = event.touches[0].clientX;
 
-    if (squares[3][0] && squares[3][0] === colorUva) {
-      if (!novoSquares[3][1] || novoSquares[3][1] === colorUva) {
-        novoSquares[3][1] = (squares[3][0] && touchX >= boardX + 71) ? colorUva : false;
-      }
-      if (!novoSquares[3][2] || novoSquares[3][2] === colorUva) {
-        novoSquares[3][2] = (squares[3][1] && touchX >= boardX + 142) ? colorUva : false;
-      }
-      if (!novoSquares[3][3] || novoSquares[3][3] === colorUva) {
-        novoSquares[3][3] = (squares[3][2] && touchX >= boardX + 213) ? colorUva : false;
+    if (squares[0][0] && squares[0][0] === colorUva) {
+      if (!novoSquares[0][1] || novoSquares[0][1] === colorUva) {
+        novoSquares[0][1] = (squares[0][0] && touchX >= boardX + 71) ? colorUva : false;
       }
     }
     else {
-      if (!novoSquares[0][0] || novoSquares[0][0] === colorUva) {
-        novoSquares[0][0] = (squares[0][1] && touchX <= boardX + 71) ? colorUva : false;
+      if (!novoSquares[3][2] || novoSquares[3][2] === colorUva) {
+        novoSquares[3][2] = (squares[3][3] && touchX <= boardX + 213) ? colorUva : false;
       }
-  
-      if (!novoSquares[1][0] || novoSquares[1][0] === colorUva) {
-        novoSquares[1][0] = (squares[0][0] && touchY >= boardY + 71) ? colorUva : false;
+
+      if (!novoSquares[3][1] || novoSquares[3][1] === colorUva) {
+        novoSquares[3][1] = (squares[3][2] && touchX <= boardX + 142) ? colorUva : false;
       }
-  
-      if (!novoSquares[2][0] || novoSquares[2][0] === colorUva) {
-        novoSquares[2][0] = (squares[1][0] && touchY >= boardY + 142) ? colorUva : false;
-      }
-  
+
       if (!novoSquares[3][0] || novoSquares[3][0] === colorUva) {
-        novoSquares[3][0] = (squares[2][0] && touchY >= boardY + 213) ? colorUva : false;
+        novoSquares[3][0] = (squares[3][1] && touchX <= boardX + 71) ? colorUva : false;
+      }
+
+      if (!novoSquares[2][0] || novoSquares[2][0] === colorUva) {
+        novoSquares[2][0] = (squares[3][0] && touchY <= boardY + 213) ? colorUva : false;
+      }
+
+      if (!novoSquares[1][0] || novoSquares[1][0] === colorUva) {
+        novoSquares[1][0] = (squares[2][0] && touchY <= boardY + 142) ? colorUva : false;
+      }
+
+      if (!novoSquares[0][0] || novoSquares[0][0] === colorUva) {
+        novoSquares[0][0] = (squares[1][0] && touchY <= boardY + 71) ? colorUva : false;
       }
     }
-    squares[3][3] ? setUvaComplete(true) : setUvaComplete(false);
+
+    squares[0][1] ? setUvaComplete(true) : setUvaComplete(false);
 
     setSquares(novoSquares);
   };
@@ -239,29 +240,24 @@ export default function Level5({reset}) {
     <div className="m-auto board-size-small">
       <Board id="board" $size={16}>
         <Square $size={'small'} $background={squares[0][0]}></Square>
-        <Square $size={'small'} 
-          $background={squares[0][1]}
-          onTouchStart={handleTouchStartUva}
-          onTouchMove={handleTouchMoveUva}
-          onTouchEnd={handleTouchEndUva}
-        >
-          <span className='small'>Uva</span>
+        <Square $size={'small'} $background={squares[0][1]}>
+          <img src={UvaIcon} alt='Uva' />
         </Square>
-        <Square $size={'small'} 
-          $background={squares[0][2]}
-          onTouchStart={handleTouchStartBanana}
-          onTouchMove={handleTouchMoveBanana}
-          onTouchEnd={handleTouchEndBanana}
-        >
-          <span className='small'>Banana</span>
+        <Square $size={'small'} $background={squares[0][2]}>
+          <img src={BananaIcon} alt='Banana' />
         </Square>
         <Square $size={'small'} $background={squares[0][3]}>
           <img src={MacaIcon} alt='Maca' />
         </Square>
 
         <Square $size={'small'} $background={squares[1][0]}></Square>
-        <Square $size={'small'} $background={squares[1][1]}>
-          <img src={BananaIcon} alt='Banana' />
+        <Square $size={'small'}
+          $background={squares[1][1]}
+          onTouchStart={handleTouchStartBanana}
+          onTouchMove={handleTouchMoveBanana}
+          onTouchEnd={handleTouchEndBanana}
+        >
+          <span className='small'>Banana</span>
         </Square>
         <Square $size={'small'} $background={squares[1][2]}></Square>
         <Square $size={'small'} $background={squares[1][3]}></Square>
@@ -281,8 +277,13 @@ export default function Level5({reset}) {
         <Square $size={'small'} $background={squares[3][0]}></Square>
         <Square $size={'small'} $background={squares[3][1]}></Square>
         <Square $size={'small'} $background={squares[3][2]}></Square>
-        <Square $size={'small'} $background={squares[3][3]}>
-          <img src={UvaIcon} alt='Uva' />
+        <Square $size={'small'} 
+          $background={squares[3][3]}
+          onTouchStart={handleTouchStartUva}
+          onTouchMove={handleTouchMoveUva}
+          onTouchEnd={handleTouchEndUva}
+        >
+          <span className='small'>Uva</span>
         </Square>
 
       </Board>

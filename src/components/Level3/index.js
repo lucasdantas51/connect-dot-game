@@ -31,7 +31,7 @@ export default function Level3({reset}) {
   // Handle Maca Complete
   const handleTouchStartMaca = () => {
     const novoSquares = [...squares];
-    novoSquares[0][1] = colorMaca;
+    novoSquares[1][2] = colorMaca;
     setSquares(novoSquares);
   };
 
@@ -41,10 +41,10 @@ export default function Level3({reset}) {
     const touchY = event.touches[0].clientY;
     const touchX = event.touches[0].clientX;
 
-    novoSquares[0][2] = (squares[0][1] && touchX >= boardX + 200) ? colorMaca : false;
-    novoSquares[1][2] = (squares[0][2] && touchY >= boardY + 100) ? colorMaca : false;
+    novoSquares[0][2] = (squares[1][2] && touchY <= boardY + 100) ? colorMaca : false;
+    novoSquares[0][1] = (squares[0][2] && touchX <= boardX + 200) ? colorMaca : false;
 
-    squares[1][2] ? setMacaComplete(true) : setMacaComplete(false);
+    squares[0][1] ? setMacaComplete(true) : setMacaComplete(false);
 
     setSquares(novoSquares);
   };
@@ -154,13 +154,8 @@ export default function Level3({reset}) {
         <Square $background={squares[0][0]}>
           <img src={BananaIcon} alt='Banana' />
         </Square>
-        <Square 
-          $background={squares[0][1]}
-          onTouchStart={handleTouchStartMaca}
-          onTouchMove={handleTouchMoveMaca}
-          onTouchEnd={handleTouchEndMaca}
-        >
-          <span>Maçã</span>
+        <Square $background={squares[0][1]}>
+          <img src={MacaIcon} alt='Maçã' />
         </Square>
         <Square 
           $background={squares[0][2]}
@@ -171,8 +166,13 @@ export default function Level3({reset}) {
         <Square $background={squares[1][1]}>
           <img src={UvaIcon} alt='Uva' />
         </Square>
-        <Square $background={squares[1][2]}>
-          <img src={MacaIcon} alt='Maçã' />
+        <Square 
+          $background={squares[1][2]}
+          onTouchStart={handleTouchStartMaca}
+          onTouchMove={handleTouchMoveMaca}
+          onTouchEnd={handleTouchEndMaca}
+        >
+          <span>Maçã</span>
         </Square>
 
         <Square 

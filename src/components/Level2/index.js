@@ -76,7 +76,7 @@ export default function Level2({reset}) {
   // Handle Maca Complete
   const handleTouchStartBanana = () => {
     const novoSquares = [...squares];
-    novoSquares[0][2] = colorBanana;
+    novoSquares[2][2] = colorBanana;
     setSquares(novoSquares);
   };
 
@@ -86,20 +86,18 @@ export default function Level2({reset}) {
     const touchY = event.touches[0].clientY;
     const touchX = event.touches[0].clientX;
 
-    novoSquares[0][1] = colorBanana;
-
-    if (squares[2][0]) {
-      novoSquares[2][1] = (touchX >= boardX + 100) ? colorBanana : false;
-      novoSquares[2][2] = (squares[2][1] && touchX >= boardX + 200) ? colorBanana : false;
+    if (squares[0][0]) {
+      novoSquares[0][1] = (touchX >= boardX + 100) ? colorBanana : false;
+      novoSquares[0][2] = (squares[0][1] && touchX >= boardX + 200) ? colorBanana : false;
     }
     else {
-      novoSquares[0][1] = (squares[0][2] && touchX <= boardX + 200 && touchY > boardY) ? colorBanana : false;
-      novoSquares[0][0] = (squares[0][1] && touchX <= boardX + 100 && touchY > boardY) ? colorBanana : false;
-      novoSquares[1][0] = (squares[0][1] && touchX <= boardX + 100 && touchY >= boardY + 100) ? colorBanana : false;
-      novoSquares[2][0] = (squares[1][0] && touchX <= boardX + 100 && touchY >= boardY + 200) ? colorBanana : false;
+      novoSquares[2][1] = (squares[2][2] && touchX <= boardX + 200 && touchY > boardY) ? colorBanana : false;
+      novoSquares[2][0] = (squares[2][1] && touchX <= boardX + 100 && touchY > boardY) ? colorBanana : false;
+      novoSquares[1][0] = (squares[2][0] && touchY <= boardY + 200) ? colorBanana : false;
+      novoSquares[0][0] = (squares[1][0] && touchY <= boardY + 100) ? colorBanana : false;
     }
 
-    squares[2][2] ? setBananaComplete(true) : setBananaComplete(false);
+    squares[0][2] ? setBananaComplete(true) : setBananaComplete(false);
 
     setSquares(novoSquares);
   };
@@ -133,13 +131,8 @@ export default function Level2({reset}) {
       <Board id="board">
         <Square $background={squares[0][0]}></Square>
         <Square $background={squares[0][1]}></Square>
-        <Square 
-          $background={squares[0][2]}
-          onTouchStart={handleTouchStartBanana}
-          onTouchMove={handleTouchMoveBanana}
-          onTouchEnd={handleTouchEndBanana}
-          >
-          <span>Banana</span>
+        <Square $background={squares[0][2]}>
+          <img src={BananaIcon} alt='Banana' />
         </Square>
 
         <Square $background={squares[1][0]}></Square>
@@ -157,8 +150,13 @@ export default function Level2({reset}) {
 
         <Square $background={squares[2][0]}></Square>
         <Square $background={squares[2][1]}></Square>
-        <Square $background={squares[2][2]}>
-          <img src={BananaIcon} alt='Banana' />
+        <Square 
+          $background={squares[2][2]}
+          onTouchStart={handleTouchStartBanana}
+          onTouchMove={handleTouchMoveBanana}
+          onTouchEnd={handleTouchEndBanana}
+        >
+          <span>Banana</span>
         </Square>
       </Board>
       {
