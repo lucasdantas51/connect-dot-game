@@ -31,3 +31,13 @@ button:disabled {
 .h-0 {
   height: 0 !important;
 }
+
+.board-size {
+  width: 304px;
+  height: 304px;
+}
+
+.board-size-small {
+  width: 289px;
+  height: 289px;
+}

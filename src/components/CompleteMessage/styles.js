@@ -8,7 +8,7 @@ export const Overlay = styled.div`
     border-radius: 1rem;
     position: relative;
     top: ${({$size}) => ($size === 'big') ? '-289px' : '-304px'};
-    left: ${({$size}) => ($size === 'big') ? '12px' : '4px'};
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: center;

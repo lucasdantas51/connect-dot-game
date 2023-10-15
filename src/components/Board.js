@@ -8,7 +8,7 @@ export default styled.div`
 	border: 1px solid #CCC;
 	box-shadow: 4px 0px 1rem #FFFFFF1A;
 	border-radius: 1rem;
-	overflow: hidden;
+	overflow: scroll;
 	gap: 1px;
 	${({$size}) => {
 		switch ($size) {

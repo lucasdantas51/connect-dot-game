@@ -129,7 +129,7 @@ export default function Level2({reset}) {
   }, [reset])
 
   return (
-    <>
+    <div className="m-auto board-size-small">
       <Board id="board">
         <Square $background={squares[0][0]}></Square>
         <Square $background={squares[0][1]}></Square>
@@ -170,6 +170,6 @@ export default function Level2({reset}) {
           </CompleteMessage>
         </div>
       }
-    </>
+    </div>
   )
 }

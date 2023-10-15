@@ -149,7 +149,7 @@ export default function Level3({reset}) {
   }, [reset])
 
   return (
-    <>
+    <div className="m-auto board-size-small">
       <Board id="board">
         <Square $background={squares[0][0]}>
           <img src={BananaIcon} alt='Banana' />
@@ -203,6 +203,6 @@ export default function Level3({reset}) {
           </CompleteMessage>
         </div>
       }
-    </>
+    </div>
   )
 }
